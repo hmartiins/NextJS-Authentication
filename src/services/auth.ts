@@ -21,3 +21,16 @@ export async function signInRequest(data: SignInRequestData) {
     }
   };
 };
+
+export async function recoverUserInformation() {
+  await delay();
+
+  return {
+    token: uuid(),
+    user: {
+      name: 'Henrique Martins',
+      email: 'hmartins224@gmail.com',
+      avatar_url: 'https://github.com/hmartiins.png'
+    }
+  };
+}
