@@ -8,6 +8,7 @@ import { AuthContext } from '../contexts/AuthContext'
 
 import { api } from '../services/api';
 import { GetServerSideProps } from 'next'
+import { getAPIClient } from '../services/axios';
 
 const navigation = ['Dashboard', 'Team', 'Projects', 'Calendar', 'Reports']
 const profile = ['Your Profile', 'Settings']
@@ -225,6 +226,7 @@ export default function Dashboard() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const apiClient = getAPIClient(ctx);
   const { ['nextauth-token']: token } = parseCookies(ctx);
 
   if (!token) {
@@ -235,6 +237,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       }
     }
   }
+
+  // await apiClient.get('/usersTest');
 
   return {
     props: {}
