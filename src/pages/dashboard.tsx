@@ -1,8 +1,13 @@
-import { Fragment, useContext } from 'react'
+import { Fragment, useContext, useEffect } from 'react'
 import Head from 'next/head'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+
+import { parseCookies } from 'nookies';
 import { AuthContext } from '../contexts/AuthContext'
+
+import { api } from '../services/api';
+import { GetServerSideProps } from 'next'
 
 const navigation = ['Dashboard', 'Team', 'Projects', 'Calendar', 'Reports']
 const profile = ['Your Profile', 'Settings']
@@ -13,6 +18,10 @@ function classNames(...classes) {
 
 export default function Dashboard() {
   const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    api.get('/usersTest');
+  });
 
   return (
     <div>
@@ -213,4 +222,21 @@ export default function Dashboard() {
       </main>
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { ['nextauth-token']: token } = parseCookies(ctx);
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      }
+    }
+  }
+
+  return {
+    props: {}
+  }
 }

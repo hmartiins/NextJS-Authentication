@@ -10,6 +10,7 @@
   "dependencies": {
     "@headlessui/react": "^1.2.0",
     "@heroicons/react": "^1.0.1",
+    "axios": "^0.27.2",
     "next": "10.2.2",
     "nookies": "^2.5.2",
     "react": "17.0.2",
